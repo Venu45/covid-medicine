@@ -1,0 +1,80 @@
+As you know, the world is suffering from Covid-19. Teams of scientists are currently working on developing vaccines for this deadly disease.
+
+Chandu being a medical sciences student, is currently working on studying the history of corona viruses. He found out that viruses evolve. Each virus has a DNA sequence (which can be represented by a sequence of uppercase characters). Whenever a virus evolves, some of the DNAs in the sequence gets modified.
+
+Chandu found out that corona viruses have a particular DNA sequence X, of length N. Chandu is working on a medicine V of length M (medicine is also represented as a sequence of uppercase characters). The medicine V can be used to cure covid-19 only if the DNA sequence X of the virus contains within it the DNA sequence of the medicine and the number of such occurrences (C1) is atleast K i.e. medicine V will cure the disease X if V is a substring of X and number of occurrences of V in X is greater than equal to K.
+
+Also the virus X has evolved and a new virus Y has been generated. The evolution happens in the following way -
+
+X(1...N) is the old DNA sequence. Evolution happens in Q stages. In the ith stage, each character of the substring X(L...R) gets rotated by Si characters (1<=L,R<=N). Rotation of a character c by Si means shifting c by Si characters towards right in the alphabet sequence (which involves looping back from ‘Z’ to ‘A’ if needed)
+
+For Example -
+
+Rotating ‘A’ by 1 gives ‘B’.
+Rotating ‘D’ by 5 gives ‘I’.
+Rotating ‘Y’ by 4 gives ‘C’.
+Rotating ‘A’ by 30 gives ‘E’ and so on.
+X undergoes Q such evolutions and we obtain Y. Now chandu wants to find if the same medicine V will work on the new virus Y i.e. if number of occurrences of V in Y (C2) is atleast K.
+
+Chandu finds this task difficult. Since Chandu is your friend, you need to help him to find the string Y and whether the medicine will cure X and Y.
+
+Note - Two substrings are considered different if they have at least one non common index. Also substring X(L..R) includes both L and R also.
+
+Input Format
+
+First line of input contains the number of test cases T.
+For each test case, the first line contains the DNA sequence of the initial virus (X).
+Next line contains the DNA sequence of the medicine (V).
+Next line contains a single integer K.
+Next line contains a single integer Q, the number of evolutions to be performed on X.
+Each of the next Q lines contains three integers Li, Ri and Si, such that each character of X(Li... Ri) gets rotated by Si characters(1<=i<=Q)
+Constraints
+
+1 <= T <= 10
+1 <= N <= 10^5 (N is the length of string X)
+1 <= M <= 10^5 (M is the length of string V)
+1 <= Q <= 10^5
+1 <= K <= 10^5
+Output Format
+
+For each test case, output will contain three lines.
+First line contains a string YES if medicine V can cure the disease X and NO if the disease can not be cured.
+Next line contains the count of occurrences of V in X (C1).
+Next line contains the Modified DNA sequence Y.
+Next line contains a string YES if medicine V can cure the disease Y and NO if the disease can not be cured.
+Next line contains the count of occurrences of V in Y (C2).
+Sample Input 0
+
+1
+ABBBCBBBBD
+BBB
+2
+2
+1 1 4
+8 10 1
+Sample Output 0
+
+YES
+3
+EBBBCBBCCE
+NO
+1
+Explanation 0
+
+image
+
+Sample Input 1
+
+1
+HOXZGUWXMIXZGND
+XZG
+7
+1
+4 11 11
+Sample Output 1
+
+NO
+2
+HOXKRFHIXTIZGND
+NO
+0
