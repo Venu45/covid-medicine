@@ -1,0 +1,142 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+char A[26]= {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+
+class strings{
+    public:
+            string S;
+            int len;
+            long long int B[100005];
+    
+    
+            void modify(int l,int r,int si);
+            int find_freq(string str,int M);
+};
+
+
+void strings::modify(int l,int r,int si){
+    si = si%26;
+    B[l] = B[l]+si;
+    B[r] = B[r]-si;
+    return;
+}
+
+
+void get_LPS(string str,int M,int lps[]) { 
+    int len = 0; 
+    int ii = 1; 
+    lps[0] = 0; 
+    while(ii<M){ 
+        if (str[ii]==str[len]){ 
+            len++; 
+            lps[ii] = len; 
+            ii++; 
+        } 
+        else{ 
+            if(len!=0){ 
+                len = lps[len-1]; 
+            } 
+            else{ 
+                lps[ii] = len; 
+                ii++; 
+            } 
+        } 
+    } 
+} 
+
+
+int strings::find_freq(string str,int M){
+    int lps[M];
+    int N = len;
+    get_LPS(str,M,lps); 
+  //  for(int kk=0;kk<M;kk++){
+    //    cout<<lps[kk]<<" ";
+ //   }
+  //  cout<<endl;
+    int ii = 0; 
+    int jj = 0;
+    long long int res = 0;  
+    int next_ii = 0;         
+    while (ii<N){ 
+     //    cout<<ii<<" "<<jj<<endl;
+        if(str[jj] == S[ii]){ 
+            jj++; 
+            ii++; 
+        } 
+        if (jj == M){ 
+            jj = lps[jj-1]; 
+            res++; 
+        } 
+        else if(ii<N && str[jj] != S[ii]) { 
+            if (jj != 0) 
+                jj = lps[jj-1]; 
+            else
+                ii = ii+1; 
+        } 
+       
+    } 
+    return res; 
+}
+
+int find_len(string s){
+    int res = 0;
+    int ii=0;
+    while(s[ii]){
+        res++;
+        ii++;
+    }
+    return res;
+}
+
+int main() {
+    int T;
+    cin>>T;
+    for(int ii=0;ii<T;ii++){
+        strings X,V;
+        string str;
+        int k,q;
+        cin>>str;
+        X.S = str;
+        X.len = find_len(str);
+        for(int kk=0;kk<X.len;kk++){
+            X.B[kk] = 0;
+        }
+        cin>>str;
+        V.S = str;
+        V.len = find_len(str);
+        cin>>k>>q;
+        long long int c1 = X.find_freq(V.S,V.len);
+        if(c1>=k)cout<<"YES"<<endl;
+        else cout<<"NO"<<endl;
+        cout<<c1<<endl;
+        for(int jj=0;jj<q;jj++){
+            int l,r,si;
+            cin>>l>>r>>si;
+            X.modify(l-1,r,si);
+        }
+        long long int temp =0;
+        long long int tem;
+        for(int kk=0;kk<=X.len;kk++){
+            temp = temp + X.B[kk];
+            tem = (int)X.S[kk];
+            tem = tem-65;
+            tem = tem + temp;
+            tem = tem%26;
+            X.S[kk] = A[tem]; 
+        }
+        cout<<X.S<<endl;
+        long long int c2 = X.find_freq(V.S,V.len);
+        if(c2>=k)cout<<"YES"<<endl;
+        else cout<<"NO"<<endl;
+        cout<<c2<<endl;
+        
+        
+    }
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    return 0;
+}
